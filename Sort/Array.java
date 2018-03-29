@@ -58,27 +58,65 @@ package Sort;
 				}
 	}
 	/* QuickSort */
-	public void QuickSort(int left,int right)
-	{
-		int i = left,j = right,tmp;
-		int pivot = (left+right)/2 ;
-		while (i < j)
-		{
-			while (elements[i]<elements[pivot]) i++;
-			while (elements[j]>elements[pivot]) j--;
-			if(i <= j)
-			{
-						
-				tmp = elements[i];
-				elements[i]=elements[j];
-				elements[j]=tmp;
-				i++;
-				j--;
-			}
-		}
-		if(i < right) QuickSort (i,right);
-		if(j > left) QuickSort(left,j);
-	}
+	*public void QuickSort(int left,int right)
+	*{
+	*	int i = left,j = right,tmp;
+	*	int pivot = (left+right)/2 ;
+	*	while (i < j)
+	*	{
+	*		while (elements[i]<elements[pivot]) i++;
+	*		while (elements[j]>elements[pivot]) j--;
+	*		if(i <= j)
+	*		{
+	*					
+	*			tmp = elements[i];
+	*			elements[i]=elements[j];
+	*			elements[j]=tmp;
+	*			i++;
+	*			j--;
+	*		}
+	*	}
+	*	if(i < right) QuickSort (i,right);
+	*	if(j > left) QuickSort(left,j);
+	*}
+	 /* QuickSort */
+	 public void QuickSort(int left, int right)
+        {
+            if (left >= right) return ;
+            else
+            {
+                double pivot = elements[right];
+                int partPoint = partition(left, right, pivot);
+                QuickSort(left, partPoint - 1);
+                QuickSort(partPoint + 1, right);
+            }
+        }
+        private int partition(int left,int right,double pivot)
+        { 
+            // partition : sap xep day thang hai phan: 1 lon hon pivot, 1 nho hon pivot
+            int j = right; 
+            int i = left - 1;
+            while(true)
+            {
+                while (elements[++i] < pivot) ;
+                while (elements[--j] > pivot && j > 0) ;
+                if (i >= j) break;
+                else Swap(elements,i,j);
+            } 
+            Swap(elements, i, right);
+            return i;
+
+            /* e.g:
+             *  1 3 7 4 6 9 8 2 [5]
+             *      i         j
+             *  1 3 2 4 6 9 8 7 [5]
+             *  ->      i
+             *        j     <-
+             *  1 3 2 4 [5] 9 8 7 6
+             * 
+             * end partition 
+             */
+        }
 	/* Insert Sort 
 	 * Lay gia tri dau tien lam goc.
 	 * Duyet tu phan tu thu 2 tro di.
